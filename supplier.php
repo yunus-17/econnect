@@ -1,0 +1,71 @@
+<?php include 'config.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier - SupplyConnect</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">SupplyConnect</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="signup.html">Sign Up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="supplier.html">Supplier</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="container mt-5">
+        <h1>Submit Product Details</h1>
+     
+        <form id="supplier-form" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+            <div class="form-group">
+                <label for="product-name">Product Name:</label>
+                <input type="text" class="form-control" id="product-name" name="product-name" required>
+                <div class="invalid-feedback">Please enter the product name.</div>
+            </div>
+            <div class="form-group">
+                <label for="product-price">Product Price:</label>
+                <input type="number" class="form-control" id="product-price" name="product-price" required>
+                <div class="invalid-feedback">Please enter the product price.</div>
+            </div>
+            <div class="form-group">
+                <label for="product-description">Product Description:</label>
+                <textarea class="form-control" id="product-description" name="product-description" required></textarea>
+                <div class="invalid-feedback">Please enter the product description.</div>
+            </div>
+            <div class="form-group">
+                <label for="product-image">Product Image:</label>
+                <input type="file" class="form-control-file" id="product-image" name="product-image" accept="image/*" required>
+                <div class="invalid-feedback">Please upload a product image.</div>
+            </div>
+            <div class="form-group">
+                <label for="phone-number">Phone Number:</label>
+                <input type="tel" class="form-control" id="phone-number" name="phone-number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" required>
+                <div class="invalid-feedback">Please enter a valid phone number (Format: 123-456-7890).</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </main>
+   
+</body>
+</html>
