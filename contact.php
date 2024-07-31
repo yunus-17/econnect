@@ -3,49 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - SupplyConnect</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>Contact Us - Connect Consumers and Suppliers</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="contact.css">
+    <style>
+        body {
+            background-color: #f7f3fc;
+            background-image: url('background2.jpeg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow: hidden;
+            position: relative;
+        }
+        header {
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for header */
+            background-color: #6f42c1; /* Purple background */
+        }
+        .contact-info {
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); /* Shadow for contact info */
+        }
+        footer {
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1); /* Shadow for footer */
+        }
+        .header-title, .header-nav a {
+            color: #ffffff; /* White text for header */
+        }
+    </style>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">SupplyConnect</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="product.html">Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="signup.html">Sign Up</a></li>
-                <li class="nav-item"><a class="nav-link" href="supplier.html">Supplier</a></li>
-            </ul>
+    <header class="py-3">
+        <div class="container text-center">
+            <h1 class="header-title">Contact Us</h1>
+            <nav>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a class="header-nav text-white" href="index.php">Home</a></li>
+                    <li class="list-inline-item"><a class="header-nav text-white" href="about.php">About</a></li>
+                    <li class="list-inline-item"><a class="header-nav text-white" href="contact.php">Contact</a></li>
+                    <li class="list-inline-item"><a class="header-nav text-white" href="login.php">Login</a></li>
+                    <li class="list-inline-item"><a class="header-nav text-white" href="signup.php">Sign Up</a></li>
+                </ul>
+            </nav>
         </div>
-    </nav>
-</header>
-
-    <main class="container mt-5">
-        <h1>Contact Us</h1>
-        <form>
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Message:</label>
-                <textarea class="form-control" id="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    </header>
+    <main class="container my-5">
+        <h2 class="text-center">Contact Us</h2>
+        <div class="contact-info bg-light p-4 rounded shadow">
+            <h3><b>CSH Market India Pvt Ltd</b></h3>
+            <p>1st floor, 1050, KEC,<br>
+               Science and Humanities,<br>
+               Dheeran Hostel,<br>
+               Near Kumar Mess, Thopupalayam,<br>
+               Perundurai, Erode,<br>
+               Tamil Nadu - 635001,<br>
+               India.</p>
+            <p><b>DIRECT: </b>+91 7010499316</p>
+            <p><b>MESSAGE: </b>+91 7300504121</p>
+        </div>
     </main>
+   
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

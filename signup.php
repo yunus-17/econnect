@@ -1,212 +1,182 @@
+<?php
+$registered = 0;
+$userExists = 0;
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    include 'config.php';
+
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * FROM tab2 WHERE email='$email'";
+    $result = mysqli_query($con, $sql);
+
+    if ($result) {
+        $num = mysqli_num_rows($result);
+        if ($num > 0) {
+            $userExists = 1;
+        } else {
+            $sql = "INSERT INTO tab2 (username, email, password) VALUES ('$username', '$email', '$password')";
+            $result = mysqli_query($con, $sql);
+            if ($result) {
+                $registered = 1;
+            } else {
+                die(mysqli_error($con));
+            }
+        }
+    } else {
+        die(mysqli_error($con));
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - SupplyConnect</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         body {
-            background: linear-gradient(to right, #f8f9fa, #e9ecef);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #333;
+            background-color: #f7f3fc;
+            background-image: url('background2.jpeg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             overflow: hidden;
-            margin: 0;
-        }
-        .signup-container {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            width: 100%;
-            color: #333;
             position: relative;
-            z-index: 10;
         }
-        .signup-container h1 {
-            margin-bottom: 30px;
-            font-weight: 700;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .signup-btn {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            background-color: #6c757d;
-            border: none;
-            font-weight: 700;
-            transition: background-color 0.3s ease;
-        }
-        .signup-btn:hover {
-            background-color: #5a6268;
+        .navbar {
+            background-color: #6f42c1 !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #5a347f;
         }
         .navbar-brand {
-            font-weight: 700;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
         }
         .nav-link {
-            font-weight: 700;
+            color: #f7f3fc !important;
+            font-size: 1.1rem;
+            transition: color 0.3s;
         }
-        .bubbles {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
+        .nav-link:hover {
+            color: #d4c2f0 !important;
+        }
+        .navbar-toggler {
+            border-color: #f7f3fc;
+        }
+        .signup-form {
+            width: 300px;
+            margin: auto;
+            margin-top: 50px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .signup-form h2 {
+            margin-bottom: 20px;
+            color: #6f42c1;
+        }
+        .signup-form input {
             width: 100%;
-            height: 100%;
-            transform: translateX(-50%);
-            overflow: hidden;
-            z-index: 1;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-        .bubble {
-            position: absolute;
-            bottom: -50px;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(108, 117, 125, 0.2);
-            border-radius: 50%;
-            animation: rise 10s infinite ease-in;
-        }
-        .bubble:nth-child(2) {
-            width: 60px;
-            height: 60px;
-            left: 25%;
-            animation-duration: 12s;
-            animation-delay: 2s;
-        }
-        .bubble:nth-child(3) {
-            width: 80px;
-            height: 80px;
-            left: 50%;
-            animation-duration: 15s;
-            animation-delay: 4s;
-        }
-        .bubble:nth-child(4) {
-            width: 100px;
-            height: 100px;
-            left: 75%;
-            animation-duration: 18s;
-            animation-delay: 6s;
-        }
-        .bubble:nth-child(5) {
-            width: 120px;
-            height: 120px;
-            left: 90%;
-            animation-duration: 20s;
-            animation-delay: 8s;
-        }
-        @keyframes rise {
-            0% {
-                bottom: -50px;
-                transform: translateX(0) scale(0.5);
-            }
-            50% {
-                transform: translateX(30px) scale(1);
-            }
-            100% {
-                bottom: 100%;
-                transform: translateX(-30px) scale(0.5);
-            }
-        }
-        header {
+        .signup-form button {
             width: 100%;
+            padding: 10px;
+            background-color: #6f42c1;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .signup-form button:hover {
+            background-color: #5a347f;
+        }
+        footer {
+            background-color: #6f42c1;
+            color: #f7f3fc;
+            text-align: center;
+            padding: 1rem 0;
             position: fixed;
-            top: 0;
-            z-index: 20;
+            width: 100%;
+            bottom: 0;
         }
-        main {
-            margin-top: 80px; /* To ensure content is not hidden behind the fixed header */
-        }
-        .parcel {
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-            width: 100px;
-            height: 100px;
-            background: url('https://image.shutterstock.com/image-vector/box-icon-vector-260nw-561520297.jpg') no-repeat center center / contain;
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-30px);
-            }
-            60% {
-                transform: translateY(-15px);
-            }
-        }
-        .parcel:hover {
-            animation: none;
-            background: url('https://image.shutterstock.com/image-vector/open-box-icon-vector-260nw-561520293.jpg') no-repeat center center / contain;
+        footer p {
+            margin: 0;
         }
     </style>
+    <script>
+        function formValidation() {
+            let x = document.forms["form2"]["username"].value;
+            if (x == "") {
+                alert("Username must be filled out");
+                return false;
+            }
+        }
+        function newFunction() {
+            document.getElementById("Form2").reset();
+        }
+    </script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">SupplyConnect</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="product.html">Products</a></li>
-                    <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="signup.html">Sign Up</a></li>
-                    <li class="nav-item"><a class="nav-link" href="supplier.html">Supplier</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <main class="container mt-5">
-        <div class="signup-container">
-            <h1>Sign Up</h1>
-            <form id="signup-form" class="needs-validation" novalidate>
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
-                    <div class="invalid-feedback">Please enter your username.</div>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                    <div class="invalid-feedback">Please enter a valid email address.</div>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                    <div class="invalid-feedback">Please enter your password.</div>
-                </div>
-                <div class="form-group">
-                    <label for="confirm-password">Confirm Password:</label>
-                    <input type="password" class="form-control" id="confirm-password" name="confirm-password" required>
-                    <div class="invalid-feedback">Please confirm your password.</div>
-                </div>
-                <button type="submit" class="btn signup-btn">Sign Up</button>
-            </form>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">SupplyConnect</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="signup.php">Sign Up</a></li>
+            </ul>
         </div>
-    </main>
-
-    <div class="parcel"></div>
-
-    <div class="bubbles">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
+    </nav>
+    <?php
+    if ($userExists) {
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error</strong> User already exists.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    }
+    if ($registered) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Congrats</strong> You are successfully Signed Up.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
+    }
+    ?>
+    <div class="signup-form">
+        <h2 class="text-center mb-4">Sign Up</h2>
+        <form action="signup.php" method="post" id="Form2" name="form2" onSubmit="return formValidation()">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
